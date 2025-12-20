@@ -1,0 +1,24 @@
+- Create artifacts and copy to PI
+
+cd src\SensorService
+dotnet publish -c Release -r linux-arm64 --self-contained -o .\publish /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true
+ssh bvalkov@bvalkov-pi-zero-2 "mkdir -p ~/GasEmissionsCheck/SensorService"
+scp -r .\publish\* bvalkov@bvalkov-pi-zero-2:~/GasEmissionsCheck/SensorService/
+ssh bvalkov@bvalkov-pi-zero-2 "chmod +x ~/GasEmissionsCheck/SensorService/GasEmissionsCheck.SensorService"
+
+- Create a systemd service
+
+scp -r deployment\gasemissionscheck-sensor.service bvalkov@bvalkov-pi-zero-2:/etc/systemd/system
+ssh bvalkov@bvalkov-pi-zero-2
+sudo nano /etc/systemd/system/gasemissionscheck-sensor.service
+# ls -la ~/GasEmissionsCheck/SensorService
+sudo systemctl daemon-reload
+sudo systemctl enable --now gasemissionscheck-sensor.service
+
+- Monitor and management of the service
+
+systemctl status gasemissionscheck-sensor.service --no-pager
+journalctl -u gasemissionscheck-sensor.service -f
+sudo systemctl stop gasemissionscheck-sensor.service
+sudo systemctl start gasemissionscheck-sensor.service
+sudo systemctl restart gasemissionscheck-sensor.service

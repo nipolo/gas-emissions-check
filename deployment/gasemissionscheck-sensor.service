@@ -1,0 +1,20 @@
+[Unit]
+Description=GasEmissionsCheck Sensor Worker Service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=bvalkov
+WorkingDirectory=/home/bvalkov/GasEmissionsCheck/SensorService
+ExecStart=/home/bvalkov/GasEmissionsCheck/SensorService/GasEmissionsCheck.SensorService
+Restart=always
+RestartSec=5
+Environment=DOTNET_ENVIRONMENT=Production
+
+# Optional hardening (safe defaults; you can relax if you need device/GPIO access)
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
