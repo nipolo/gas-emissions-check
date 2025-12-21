@@ -21,4 +21,5 @@ systemctl status gasemissionscheck-sensor.service --no-pager
 journalctl -u gasemissionscheck-sensor.service -f
 sudo systemctl stop gasemissionscheck-sensor.service
 sudo systemctl start gasemissionscheck-sensor.service
-sudo systemctl restart gasemissionscheck-sensor.service
+sudo systemctl restart gasemissionscheck-sensor.servicedisable
+sudo systemctl disable gasemissionscheck-sensor.service

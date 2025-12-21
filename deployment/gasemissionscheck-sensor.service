@@ -6,8 +6,8 @@ Wants=network-online.target
 [Service]
 Type=simple
 User=bvalkov
-WorkingDirectory=/home/bvalkov/GasEmissionsCheck/SensorService
-ExecStart=/home/bvalkov/GasEmissionsCheck/SensorService/GasEmissionsCheck.SensorService
+WorkingDirectory=/home/bvalkov/gas-emissions-check/src/SensorService
+ExecStart=/home/bvalkov/gas-emissions-check/artifacts/publish/sensorservice
 Restart=always
 RestartSec=5
 Environment=DOTNET_ENVIRONMENT=Production
