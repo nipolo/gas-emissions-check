@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -44,9 +43,7 @@ public class TapoCameraSnapshotService : ICameraSnapshotService
                 $"Snapshot failed. ExitCode={result.ExitCode}\n{result.StdErr}");
         }
 
-        //return result.StdOut;
-
-        return File.ReadAllBytes("C:\\Users\\BorislavValkov\\Desktop\\File_001.png");
+        return result.StdOut;
     }
 
     private string BuildRtspUrl()

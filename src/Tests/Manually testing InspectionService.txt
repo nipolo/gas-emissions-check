@@ -1,0 +1,4 @@
+- http://gec.inspection-service.rabbitmq:15672/#/queues/%2F/register-new-gas-data-queue
+	- { "CorrelationId": "635915cb-3b49-4b68-8565-e76e7c30e463", "StartedAt": "2025-12-21T19:09:26+02:00" }
+- http://gec.inspection-service.rabbitmq:15672/#/queues/%2F/complete-gas-data-measuring-queue
+	- { "CorrelationId": "635915cb-3b49-4b68-8565-e76e7c30e463", "CompletedAt": "2025-12-21T19:13:10+02:00", "CO": 13.083, "CO2": 26.43, "HC": 23, "O2": 20.90, "NO": 4223, "Lambda": 1.024 }

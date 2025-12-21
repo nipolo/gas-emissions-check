@@ -1,0 +1,10 @@
+- Setup OS
+- Install dotnet, git, ffmpeg
+- Add github account and setup agent (check .bashrc)
+- Deploy SensorService
+	ssh bvalkov@bvalkov-pi-zero-2 "sudo sh -c 'echo \"192.168.100.10 gec.inspection-service.rabbitmq gec.inspection-service.dbserver\" >> /etc/hosts'"
+	scp -r .\deployment\.bash_aliases bvalkov@bvalkov-pi-zero-2:~/
+	ssh bvalkov@bvalkov-pi-zero-2 "source ~/.bash_aliases"
+	scp -r .\deployment\deploy_sensor.sh bvalkov@bvalkov-pi-zero-2:~/scripts/
+	ssh bvalkov@bvalkov-pi-zero-2 "chmod +x  ~/scripts/deploy_sensor.sh"
+	redeploy

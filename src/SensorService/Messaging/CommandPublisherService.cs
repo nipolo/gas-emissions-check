@@ -49,6 +49,7 @@ public class CommandPublisherService : ICommandPublisher, IAsyncDisposable
     public async Task InitializeAsync(CancellationToken cancellationToken)
     {
         await _initLock.WaitAsync(cancellationToken);
+
         try
         {
             if (_connection is { IsOpen: true })

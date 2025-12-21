@@ -2,6 +2,9 @@
   <Folder Name="/Infrastructure/">
     <File Path="deployment/docker-compose.yml" />
   </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="src/Tests/PublishCOMPortData/PublishCOMPortData.csproj" />
+  </Folder>
   <Project Path="src/Common/GEC.Common.csproj" />
   <Project Path="src/InspectionService/GEC.InspectionService.csproj" />
   <Project Path="src/SensorService/GEC.SensorService.csproj" />
