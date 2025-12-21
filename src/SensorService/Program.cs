@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
 
-using GasEmissionsCheck.SensorService.Infrastructure;
-using GasEmissionsCheck.SensorService.Infrastructure.Abstractions;
+using GasEmissionsCheck.SensorService.Messaging;
+using GasEmissionsCheck.SensorService.Messaging.Abstractions;
 using GasEmissionsCheck.SensorService.Module;
 using GasEmissionsCheck.SensorService.Services;
 using GasEmissionsCheck.SensorService.Services.Abstractions;

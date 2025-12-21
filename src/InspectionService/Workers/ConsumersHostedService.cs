@@ -18,21 +18,21 @@ using RabbitMQ.Client.Events;
 
 namespace GEC.InspectionService.Workers;
 
-public sealed class ConsumersService : BackgroundService
+public sealed class ConsumersHostedService : BackgroundService
 {
     private IConnection _connection;
     private readonly IServiceProvider _serviceProvider;
     private readonly RabbitMQSettings _rabbitMQSettings;
-    private readonly ILogger<ConsumersService> _logger;
+    private readonly ILogger<ConsumersHostedService> _logger;
 
     private readonly List<IChannel> _channels = [];
     private readonly List<string> _consumerTags = [];
     private readonly List<IServiceScope> _scopes = [];
 
-    public ConsumersService(
+    public ConsumersHostedService(
         IServiceProvider serviceProvider,
         IOptions<RabbitMQSettings> rabbitMQSettings,
-        ILogger<ConsumersService> logger)
+        ILogger<ConsumersHostedService> logger)
     {
         _serviceProvider = serviceProvider;
         _rabbitMQSettings = rabbitMQSettings.Value;

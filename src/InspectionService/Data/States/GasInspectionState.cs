@@ -6,7 +6,7 @@ public class GasInspectionState
 {
     public Guid Id { get; set; }
 
-    public string LicensePlateNumber { get; set; }
+    public string RegistrationNumber { get; set; }
 
     public DateTimeOffset StartedOn { get; set; }
 

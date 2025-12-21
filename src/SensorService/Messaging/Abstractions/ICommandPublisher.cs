@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 using GasEmissionsCheck.Common.Contracts.Commands;
 
-namespace GasEmissionsCheck.SensorService.Infrastructure.Abstractions;
+namespace GasEmissionsCheck.SensorService.Messaging.Abstractions;
 
 public interface ICommandPublisher
 {

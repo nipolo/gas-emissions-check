@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using GasEmissionsCheck.Common.Contracts.Commands;
-using GasEmissionsCheck.SensorService.Infrastructure.Abstractions;
+using GasEmissionsCheck.SensorService.Messaging.Abstractions;
 using GasEmissionsCheck.SensorService.Module;
 
 using Microsoft.Extensions.Options;
@@ -14,7 +14,7 @@ using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Exceptions;
 
-namespace GasEmissionsCheck.SensorService.Infrastructure;
+namespace GasEmissionsCheck.SensorService.Messaging;
 
 public class CommandPublisherService : ICommandPublisher, IAsyncDisposable
 {

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO.Ports;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,7 +6,7 @@ using System.Threading.Tasks;
 using GasEmissionsCheck.Common.Contracts.Commands;
 using GasEmissionsCheck.Common.Shared.Utils;
 using GasEmissionsCheck.SensorService.Domain;
-using GasEmissionsCheck.SensorService.Infrastructure.Abstractions;
+using GasEmissionsCheck.SensorService.Messaging.Abstractions;
 using GasEmissionsCheck.SensorService.Module;
 using GasEmissionsCheck.SensorService.Services.Abstractions;
 
@@ -21,15 +20,11 @@ public sealed class GasAnalyzerSensorWorker : BackgroundService
 {
     private readonly AppSettings _appSettings;
     private readonly DomainSettings _domainSettings;
-    private readonly RabbitMQSettings _rabbitMQSettings;
     private readonly IGasAnalyzerDataService _gasAnalyzerDataService;
     private readonly ICommandPublisher _commandPublisher;
     private readonly ILogger<GasAnalyzerSensorWorker> _logger;
 
     private SerialPort _serialPort;
-
-    private readonly List<byte> _accumulator = new(capacity: 512);
-    private readonly Lock _accumulatorLock = new();
 
     // session state
     private bool _isInSession;
@@ -42,7 +37,6 @@ public sealed class GasAnalyzerSensorWorker : BackgroundService
         ICommandPublisher commandPublisher,
         IOptions<AppSettings> appSettings,
         IOptions<DomainSettings> domainSettings,
-        IOptions<RabbitMQSettings> rabbitMQSettings,
         ILogger<GasAnalyzerSensorWorker> logger)
     {
         _gasAnalyzerDataService = gasAnalyzerDataService;
@@ -50,7 +44,6 @@ public sealed class GasAnalyzerSensorWorker : BackgroundService
 
         _appSettings = appSettings.Value;
         _domainSettings = domainSettings.Value;
-        _rabbitMQSettings = rabbitMQSettings.Value;
 
         _logger = logger;
     }
@@ -225,8 +218,8 @@ public sealed class GasAnalyzerSensorWorker : BackgroundService
 
     private void ResetSession()
     {
-        _isInSession = false;
-        _correlationId = Guid.Empty;
+        _isInSession = default;
+        _correlationId = default;
         _startedAt = default;
         _bestData = null;
     }

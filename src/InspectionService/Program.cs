@@ -12,6 +12,8 @@ using GEC.InspectionService.Infrastructure.PlateRecognizer.Module;
 using GEC.InspectionService.Infrastructure.PlateRecognizer.Services;
 using GEC.InspectionService.Infrastructure.PlateRecognizer.Services.Abstractions;
 using GEC.InspectionService.Module;
+using GEC.InspectionService.Services;
+using GEC.InspectionService.Services.Abstractions;
 using GEC.InspectionService.Workers;
 
 using Microsoft.EntityFrameworkCore;
@@ -51,7 +53,7 @@ public class Program
 
         AddSettings(builder.Services);
 
-        builder.Services.AddHostedService<ConsumersService>();
+        builder.Services.AddHostedService<ConsumersHostedService>();
 
         var app = builder.Build();
 
@@ -98,6 +100,7 @@ public class Program
     {
         services.TryAddSingleton<ICameraSnapshotService, TapoCameraSnapshotService>();
         services.TryAddSingleton<IPlateRecognizerAdapterService, PlateRecognizerAdapterService>();
+        services.TryAddSingleton<IGasInspectionService, GasInspectionService>();
 
         services.AddHttpClient(HttpClientConsts.PlateRecognizer, (sp, client) =>
         {
