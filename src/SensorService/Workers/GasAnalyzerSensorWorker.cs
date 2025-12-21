@@ -143,6 +143,8 @@ public sealed class GasAnalyzerSensorWorker : BackgroundService
     {
         if (!_gasAnalyzerDataService.TryParseData(buffer, out var data) || data is null)
         {
+            _logger.LogDebug("Wrong format - skip buffer data");
+
             return;
         }
 

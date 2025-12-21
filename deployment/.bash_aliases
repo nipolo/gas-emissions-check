@@ -20,6 +20,7 @@ alias gundo='git restore $1'
 alias redeploy="$HOME/scripts/deploy_sensor.sh"
 alias gec_logs="journalctl -u gasemissionscheck-sensor.service -f"
 alias gec_start="sudo systemctl start gasemissionscheck-sensor.service && journalctl -u gasemissionscheck-sensor.service -f"
+alias gec_restart="sudo systemctl restart gasemissionscheck-sensor.service && journalctl -u gasemissionscheck-sensor.service -f"
 alias gec_stop="sudo systemctl stop gasemissionscheck-sensor.service"
 alias gec_disable="sudo systemctl disable gasemissionscheck-sensor.service"
 alias gec_status="systemctl status gasemissionscheck-sensor.service --no-pager"
