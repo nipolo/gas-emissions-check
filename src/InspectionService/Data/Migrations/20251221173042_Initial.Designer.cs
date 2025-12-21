@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GEC.InspectionService.Data.Migrations
 {
     [DbContext(typeof(InspectionServiceDBContext))]
-    [Migration("20251221135129_Initial")]
+    [Migration("20251221173042_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -31,25 +31,25 @@ namespace GEC.InspectionService.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<decimal>("CO")
+                    b.Property<decimal?>("CO")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal>("CO2")
+                    b.Property<decimal?>("CO2")
                         .HasColumnType("numeric");
 
                     b.Property<DateTimeOffset?>("CompletedOn")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("HC")
+                    b.Property<int?>("HC")
                         .HasColumnType("integer");
 
-                    b.Property<decimal>("Lambda")
+                    b.Property<decimal?>("Lambda")
                         .HasColumnType("numeric");
 
-                    b.Property<int>("NO")
+                    b.Property<int?>("NO")
                         .HasColumnType("integer");
 
-                    b.Property<decimal>("O2")
+                    b.Property<decimal?>("O2")
                         .HasColumnType("numeric");
 
                     b.Property<string>("RegistrationNumber")

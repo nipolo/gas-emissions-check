@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 using GEC.InspectionService.Data.Adapter;
@@ -18,7 +19,7 @@ public class GasInspectionService : IGasInspectionService
         _dbContextFactory = dbContextFactory;
     }
 
-    public async Task<GasInspectionState> StartGasInspectionAsync(Guid id, string registerNumber, DateTimeOffset startedAt)
+    public async Task<GasInspectionState> StartGasInspectionAsync(Guid id, string registerNumber, DateTimeOffset startedAt, CancellationToken cancellationToken)
     {
         using var dbContext = _dbContextFactory.CreateDbContext();
 
@@ -26,22 +27,23 @@ public class GasInspectionService : IGasInspectionService
         {
             Id = id,
             RegistrationNumber = registerNumber,
-            StartedOn = startedAt
+            StartedOn = startedAt.ToUniversalTime()
         };
 
-        await dbContext.GasInspections.AddAsync(newGasInspection);
+        await dbContext.GasInspections.AddAsync(newGasInspection, cancellationToken);
 
-        await dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync(cancellationToken);
 
         return newGasInspection;
     }
 
     public async Task<GasInspectionState> CompleteGasInspectionAsync(
-        Guid id, decimal co, decimal co2, decimal o2, int hc, int no, decimal lambda, DateTimeOffset completedAt)
+        Guid id, decimal co, decimal co2, decimal o2, int hc, int no,
+        decimal lambda, DateTimeOffset completedAt, CancellationToken cancellationToken)
     {
         using var dbContext = _dbContextFactory.CreateDbContext();
 
-        var gasInspection = await dbContext.GasInspections.SingleAsync(x => x.Id == id);
+        var gasInspection = await dbContext.GasInspections.SingleAsync(x => x.Id == id, cancellationToken);
 
         gasInspection.CO = co;
         gasInspection.CO2 = co2;
@@ -49,9 +51,9 @@ public class GasInspectionService : IGasInspectionService
         gasInspection.HC = hc;
         gasInspection.NO = no;
         gasInspection.Lambda = lambda;
-        gasInspection.CompletedOn = completedAt;
+        gasInspection.CompletedOn = completedAt.ToUniversalTime();
 
-        await dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync(cancellationToken);
 
         return gasInspection;
     }

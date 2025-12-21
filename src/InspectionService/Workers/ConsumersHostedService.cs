@@ -41,9 +41,19 @@ public sealed class ConsumersHostedService : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        await StartAllConsumersAsync(stoppingToken);
+        try
+        {
+            await StartAllConsumersAsync(stoppingToken);
 
-        await Task.Delay(Timeout.Infinite, stoppingToken);
+            await Task.Delay(Timeout.Infinite, stoppingToken);
+        }
+        catch (OperationCanceledException)
+        {
+        }
+        catch (Exception ex)
+        {
+            _logger.LogCritical(ex, "Fatal error in Consumer Service");
+        }
     }
 
     public async Task StartAllConsumersAsync(CancellationToken cancellationToken)
@@ -105,7 +115,8 @@ public sealed class ConsumersHostedService : BackgroundService
             var consumer = (AsyncEventingBasicConsumer)ActivatorUtilities.CreateInstance(
                 scope.ServiceProvider,
                 handlerType,
-                channel);
+                channel,
+                cancellationToken);
 
             var tag = await channel.BasicConsumeAsync(
                 queue: queueName,

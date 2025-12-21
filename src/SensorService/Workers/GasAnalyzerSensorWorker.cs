@@ -51,26 +51,33 @@ public sealed class GasAnalyzerSensorWorker : BackgroundService
 
     public override async Task StartAsync(CancellationToken cancellationToken)
     {
-        await _commandPublisher.InitializeAsync(cancellationToken);
-
-        var portName = _appSettings.GasAnalyzerCOMPort ?? ComPortFinder.FindFirstComPortName();
-        _serialPort = new SerialPort(portName)
+        try
         {
-            BaudRate = 9600,
-            Parity = Parity.None,
-            DataBits = 8,
-            StopBits = StopBits.One,
-            Handshake = Handshake.None
-        };
+            await _commandPublisher.InitializeAsync(cancellationToken);
 
-        _serialPort.DataReceived += OnSerialPortDataReceived;
-        _serialPort.Open();
+            var portName = _appSettings.GasAnalyzerCOMPort ?? ComPortFinder.FindFirstComPortName();
+            _serialPort = new SerialPort(portName)
+            {
+                BaudRate = 9600,
+                Parity = Parity.None,
+                DataBits = 8,
+                StopBits = StopBits.One,
+                Handshake = Handshake.None
+            };
 
-        _logger.LogInformation(
-            "Worker started. GasAnalyzerCOMPort {GasAnalyzerCOMPort}",
-            _appSettings.GasAnalyzerCOMPort);
+            _serialPort.DataReceived += OnSerialPortDataReceived;
+            _serialPort.Open();
 
-        await base.StartAsync(cancellationToken);
+            _logger.LogInformation(
+                "Worker started. GasAnalyzerCOMPort {GasAnalyzerCOMPort}",
+                _appSettings.GasAnalyzerCOMPort);
+
+            await base.StartAsync(cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogCritical(ex, "Fatal error when starting {WorkerName}", nameof(GasAnalyzerSensorWorker));
+        }
     }
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)

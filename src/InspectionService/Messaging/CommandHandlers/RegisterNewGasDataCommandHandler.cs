@@ -68,15 +68,15 @@ public class RegisterNewGasDataCommandHandler : AsyncEventingBasicConsumer
                 throw new Exception("Error plate number recognition");
             }
 
-            var gasInspection = await _gasInspectionService.StartGasInspectionAsync(command.CorrelationId, registerNumber, command.StartedAt);
+            var gasInspection = await _gasInspectionService.StartGasInspectionAsync(command.CorrelationId, registerNumber, command.StartedAt, _cancellationToken);
 
             _logger.LogInformation("Successfully started gas inspection with id={GasInspectionId}", gasInspection.Id);
-
-            await Channel.BasicAckAsync(ea.DeliveryTag, false);
         }
-        catch
+        catch (Exception ex)
         {
-            _logger.LogError("Error when consuming {CommandType} command with CorrelationId={CorrelationId}", typeof(RegisterNewGasDataCommand), command?.CorrelationId);
+            _logger.LogError(ex, "Error when consuming {CommandType} command with CorrelationId={CorrelationId}", typeof(RegisterNewGasDataCommand), command?.CorrelationId);
         }
+
+        await Channel.BasicAckAsync(ea.DeliveryTag, false);
     }
 }

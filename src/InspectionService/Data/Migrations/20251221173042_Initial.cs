@@ -19,12 +19,12 @@ namespace GEC.InspectionService.Data.Migrations
                     RegistrationNumber = table.Column<string>(type: "text", nullable: true),
                     StartedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CompletedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    CO = table.Column<decimal>(type: "numeric", nullable: false),
-                    CO2 = table.Column<decimal>(type: "numeric", nullable: false),
-                    O2 = table.Column<decimal>(type: "numeric", nullable: false),
-                    HC = table.Column<int>(type: "integer", nullable: false),
-                    NO = table.Column<int>(type: "integer", nullable: false),
-                    Lambda = table.Column<decimal>(type: "numeric", nullable: false)
+                    CO = table.Column<decimal>(type: "numeric", nullable: true),
+                    CO2 = table.Column<decimal>(type: "numeric", nullable: true),
+                    O2 = table.Column<decimal>(type: "numeric", nullable: true),
+                    HC = table.Column<int>(type: "integer", nullable: true),
+                    NO = table.Column<int>(type: "integer", nullable: true),
+                    Lambda = table.Column<decimal>(type: "numeric", nullable: true)
                 },
                 constraints: table =>
                 {
