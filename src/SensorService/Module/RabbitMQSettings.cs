@@ -1,4 +1,4 @@
-﻿namespace GasEmissionsCheck.SensorService.Module;
+﻿namespace GEC.SensorService.Module;
 
 public class RabbitMQSettings
 {

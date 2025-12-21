@@ -22,7 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Common\GasEmissionsCheck.Common.csproj" />
+        <ProjectReference Include="..\Common\GEC.Common.csproj" />
     </ItemGroup>
 
     <ItemGroup>

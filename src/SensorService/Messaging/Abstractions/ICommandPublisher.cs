@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-using GasEmissionsCheck.Common.Contracts.Commands;
+using GEC.Common.Contracts.Commands;
 
-namespace GasEmissionsCheck.SensorService.Messaging.Abstractions;
+namespace GEC.SensorService.Messaging.Abstractions;
 
 public interface ICommandPublisher
 {

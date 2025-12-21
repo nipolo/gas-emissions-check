@@ -4,7 +4,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-using GasEmissionsCheck.Common.Contracts.Commands;
+using GEC.Common.Contracts.Commands;
 
 using GEC.InspectionService.Infrastructure.IPCamera.Services.Abstractions;
 using GEC.InspectionService.Infrastructure.PlateRecognizer.Services.Abstractions;

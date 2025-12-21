@@ -3,18 +3,19 @@ using System.IO.Ports;
 using System.Threading;
 using System.Threading.Tasks;
 
-using GasEmissionsCheck.Common.Contracts.Commands;
-using GasEmissionsCheck.Common.Shared.Utils;
-using GasEmissionsCheck.SensorService.Domain;
-using GasEmissionsCheck.SensorService.Messaging.Abstractions;
-using GasEmissionsCheck.SensorService.Module;
-using GasEmissionsCheck.SensorService.Services.Abstractions;
+using GEC.Common.Contracts.Commands;
+
+using GEC.Common.Shared.Utils;
+using GEC.SensorService.Domain;
+using GEC.SensorService.Messaging.Abstractions;
+using GEC.SensorService.Module;
+using GEC.SensorService.Services.Abstractions;
 
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace GasEmissionsCheck.SensorService.Workers;
+namespace GEC.SensorService.Workers;
 
 public sealed class GasAnalyzerSensorWorker : BackgroundService
 {

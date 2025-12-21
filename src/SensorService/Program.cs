@@ -1,12 +1,12 @@
 using System;
 using System.Threading.Tasks;
 
-using GasEmissionsCheck.SensorService.Messaging;
-using GasEmissionsCheck.SensorService.Messaging.Abstractions;
-using GasEmissionsCheck.SensorService.Module;
-using GasEmissionsCheck.SensorService.Services;
-using GasEmissionsCheck.SensorService.Services.Abstractions;
-using GasEmissionsCheck.SensorService.Workers;
+using GEC.SensorService.Messaging;
+using GEC.SensorService.Messaging.Abstractions;
+using GEC.SensorService.Module;
+using GEC.SensorService.Services;
+using GEC.SensorService.Services.Abstractions;
+using GEC.SensorService.Workers;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +14,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace GasEmissionsCheck.SensorService;
+namespace GEC.SensorService;
 
 public class Program
 {

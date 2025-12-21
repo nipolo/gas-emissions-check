@@ -1,4 +1,4 @@
-﻿namespace GasEmissionsCheck.SensorService.Domain;
+﻿namespace GEC.SensorService.Domain;
 
 public class GasAnalyzerData
 {

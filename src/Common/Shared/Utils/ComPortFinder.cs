@@ -1,6 +1,6 @@
 ﻿using System.IO.Ports;
 
-namespace GasEmissionsCheck.Common.Shared.Utils;
+namespace GEC.Common.Shared.Utils;
 
 public static class ComPortFinder
 {

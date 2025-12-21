@@ -6,7 +6,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-using GasEmissionsCheck.Common.Consts;
+using GEC.Common.Consts;
 
 using GEC.InspectionService.Infrastructure.PlateRecognizer.Dtos;
 using GEC.InspectionService.Infrastructure.PlateRecognizer.Module;

@@ -1,4 +1,4 @@
-﻿namespace GasEmissionsCheck.Common.Consts;
+﻿namespace GEC.Common.Consts;
 
 public static class HttpClientConsts
 {

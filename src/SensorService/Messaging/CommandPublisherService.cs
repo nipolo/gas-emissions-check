@@ -5,16 +5,16 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-using GasEmissionsCheck.Common.Contracts.Commands;
-using GasEmissionsCheck.SensorService.Messaging.Abstractions;
-using GasEmissionsCheck.SensorService.Module;
+using GEC.Common.Contracts.Commands;
+using GEC.SensorService.Messaging.Abstractions;
+using GEC.SensorService.Module;
 
 using Microsoft.Extensions.Options;
 
 using RabbitMQ.Client;
 using RabbitMQ.Client.Exceptions;
 
-namespace GasEmissionsCheck.SensorService.Messaging;
+namespace GEC.SensorService.Messaging;
 
 public class CommandPublisherService : ICommandPublisher, IAsyncDisposable
 {

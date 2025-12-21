@@ -2,8 +2,6 @@ using System;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-using GasEmissionsCheck.Common.Consts;
-
 using GEC.InspectionService.Data.Adapter;
 using GEC.InspectionService.Infrastructure.IPCamera.Module;
 using GEC.InspectionService.Infrastructure.IPCamera.Services;

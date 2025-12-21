@@ -2,7 +2,7 @@
 using System.Text.Json;
 using System.Threading.Tasks;
 
-using GasEmissionsCheck.Common.Contracts.Commands;
+using GEC.Common.Contracts.Commands;
 
 using GEC.InspectionService.Services.Abstractions;
 

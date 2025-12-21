@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-using GasEmissionsCheck.Common.Shared.Utils;
+using GEC.Common.Shared.Utils;
 
 using GEC.InspectionService.Infrastructure.IPCamera.Module;
 using GEC.InspectionService.Infrastructure.IPCamera.Services.Abstractions;

@@ -1,4 +1,4 @@
-﻿namespace GasEmissionsCheck.Common.Contracts.Commands;
+﻿namespace GEC.Common.Contracts.Commands;
 
 public class RegisterNewGasDataCommand
 {

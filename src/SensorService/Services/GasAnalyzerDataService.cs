@@ -1,7 +1,7 @@
-﻿using GasEmissionsCheck.SensorService.Domain;
-using GasEmissionsCheck.SensorService.Services.Abstractions;
+﻿using GEC.SensorService.Domain;
+using GEC.SensorService.Services.Abstractions;
 
-namespace GasEmissionsCheck.SensorService.Services;
+namespace GEC.SensorService.Services;
 
 public class GasAnalyzerDataService : IGasAnalyzerDataService
 {
