@@ -35,7 +35,7 @@ public class CommandPublisherService : ICommandPublisher, IAsyncDisposable
             HostName = _rabbitMQSettings.Host,
             VirtualHost = _rabbitMQSettings.VirtualHost,
             Port = _rabbitMQSettings.Port,
-            UserName = _rabbitMQSettings.User,
+            UserName = _rabbitMQSettings.Username,
             Password = _rabbitMQSettings.Password,
             ClientProvidedName = _rabbitMQSettings.ClientName,
             AutomaticRecoveryEnabled = true,
@@ -80,7 +80,7 @@ public class CommandPublisherService : ICommandPublisher, IAsyncDisposable
                 _connection = null;
             }
 
-            _connection = await _connectionFactory.CreateConnectionAsync(_rabbitMQSettings.ClientName, cancellationToken);
+            _connection = await _connectionFactory.CreateConnectionAsync(cancellationToken);
 
             var channel = await GetChannelAsync(cancellationToken);
             try

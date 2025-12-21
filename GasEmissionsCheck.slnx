@@ -1,4 +1,8 @@
 <Solution>
+  <Folder Name="/Infrastructure/">
+    <File Path="deployment/docker-compose.yml" />
+  </Folder>
   <Project Path="src/Common/GasEmissionsCheck.Common.csproj" />
+  <Project Path="src/InspectionService/GEC.InspectionService.csproj" />
   <Project Path="src/SensorService/GasEmissionsCheck.SensorService.csproj" />
 </Solution>

@@ -1,0 +1,22 @@
+services:              
+  gec.inspection-service.rabbitmq:
+    container_name: gec.inspection-service.rabbitmq
+    image: rabbitmq:management
+    restart: always
+    ports:
+      - 15672:15672
+      - 5672:5672
+      - 5671:5671
+    environment:
+      - RABBITMQ_DEFAULT_USER=papa_joo
+      - RABBITMQ_DEFAULT_PASS=1qaz!QAZ
+        
+  gec.inspection-service.dbserver:
+    container_name: gec.inspection-service.dbserver
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: 1qaz!QAZ
+      POSTGRES_USER: papa_joo
+    ports:
+      - 5432:5432
+    restart: always

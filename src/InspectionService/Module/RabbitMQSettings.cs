@@ -1,4 +1,6 @@
-﻿namespace GasEmissionsCheck.SensorService.Module;
+﻿using System.Collections.Generic;
+
+namespace GEC.InspectionService.Module;
 
 public class RabbitMQSettings
 {
@@ -14,11 +16,7 @@ public class RabbitMQSettings
 
     public string Password { get; set; }
 
-    public string RegisterNewGasDataQueue { get; set; }
-
-    public string CompleteGasDataMeasuringQueue { get; set; }
-
     public string ClientName { get; set; }
 
-    public int PublisherPoolSize { get; set; }
+    public Dictionary<string, string> Queues { get; set; }
 }
