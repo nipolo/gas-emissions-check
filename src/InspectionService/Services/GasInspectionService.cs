@@ -19,14 +19,14 @@ public class GasInspectionService : IGasInspectionService
         _dbContextFactory = dbContextFactory;
     }
 
-    public async Task<GasInspectionState> StartGasInspectionAsync(Guid id, string registerNumber, DateTimeOffset startedAt, CancellationToken cancellationToken)
+    public async Task<GasInspectionState> StartGasInspectionAsync(Guid id, string registrationNumber, DateTimeOffset startedAt, CancellationToken cancellationToken)
     {
         using var dbContext = _dbContextFactory.CreateDbContext();
 
         var newGasInspection = new GasInspectionState
         {
             Id = id,
-            RegistrationNumber = registerNumber,
+            RegistrationNumber = registrationNumber,
             StartedOn = startedAt.ToUniversalTime()
         };
 

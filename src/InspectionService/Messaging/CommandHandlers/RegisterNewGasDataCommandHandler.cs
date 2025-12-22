@@ -62,13 +62,14 @@ public class RegisterNewGasDataCommandHandler : AsyncEventingBasicConsumer
             }
             _logger.LogDebug("Snapshot taken successfully");
 
-            var registerNumber = await _plateRecognizerAdapterService.TryGetPlateNumberAsync(currentCameraSnapshot);
-            if (string.IsNullOrEmpty(registerNumber))
+            var registrationNumber = await _plateRecognizerAdapterService.TryGetPlateNumberAsync(currentCameraSnapshot);
+            if (string.IsNullOrEmpty(registrationNumber))
             {
                 throw new Exception("Error plate number recognition");
             }
+            _logger.LogDebug("Plate number recognized successfully");
 
-            var gasInspection = await _gasInspectionService.StartGasInspectionAsync(command.CorrelationId, registerNumber, command.StartedAt, _cancellationToken);
+            var gasInspection = await _gasInspectionService.StartGasInspectionAsync(command.CorrelationId, registrationNumber, command.StartedAt, _cancellationToken);
 
             _logger.LogInformation("Successfully started gas inspection with id={GasInspectionId}", gasInspection.Id);
         }
