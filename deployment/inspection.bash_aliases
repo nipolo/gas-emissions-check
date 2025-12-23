@@ -17,7 +17,7 @@ alias gpl='git pull'
 alias gps='git push'
 alias gundo='git restore $1'
 
-alias redeploy="$HOME/scripts/deploy_sensor.sh"
+alias redeploy_inspection="$HOME/scripts/deploy_inspection.sh"
 alias gec_logs="journalctl -u inspectionservice.service -f"
 alias gec_start="sudo systemctl start inspectionservice.service && journalctl -u inspectionservice.service -f"
 alias gec_stop="sudo systemctl stop inspectionservice.service"

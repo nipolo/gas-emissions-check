@@ -1,10 +1,10 @@
 - Setup OS
-- Install dotnet, git, docker-compose
+- Install dotnet, git, docker-compose, ffmpeg
 - Deploy infrastructure
 	docker-compose -p gas-emission-check up -d
 - Add github account and setup agent (check .bashrc)
 - Deploy SensorService
-	scp -r .\deployment\.bash_aliases_inspection bvalkov@raspberrypi5:~/.bash_aliases
+	scp -r .\deployment\inspection.bash_aliases bvalkov@raspberrypi5:~/.bash_aliases
 	ssh bvalkov@raspberrypi5 "source ~/.bash_aliases"
 	scp -r .\deployment\deploy_inspection.sh bvalkov@raspberrypi5:~/scripts/
 	ssh bvalkov@raspberrypi5 "chmod +x  ~/scripts/deploy_inspection.sh"

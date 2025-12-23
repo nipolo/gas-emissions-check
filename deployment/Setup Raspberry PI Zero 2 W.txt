@@ -1,5 +1,5 @@
 - Setup OS
-- Install dotnet, git, ffmpeg, socat (for virtual serial port pair)
+- Install dotnet, git, socat (for virtual serial port pair)
 - Add github account and setup agent (check .bashrc)
 - Deploy SensorService
 	ssh bvalkov@bvalkov-pi-zero-2 "sudo sh -c 'echo \"192.168.100.10 gec.inspection-service.rabbitmq gec.inspection-service.dbserver\" >> /etc/hosts'"

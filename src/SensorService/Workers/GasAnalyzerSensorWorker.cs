@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO.Ports;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,6 +20,10 @@ namespace GEC.SensorService.Workers;
 
 public sealed class GasAnalyzerSensorWorker : BackgroundService
 {
+    private static readonly byte[] PingCommand = { 3, 2, 49, 82, 71, 67, 65 };
+    private const int FrameLength = 43;
+    private const byte FrameStartByte = 6;
+
     private readonly AppSettings _appSettings;
     private readonly DomainSettings _domainSettings;
     private readonly IGasAnalyzerDataService _gasAnalyzerDataService;
@@ -28,6 +33,7 @@ public sealed class GasAnalyzerSensorWorker : BackgroundService
     private SerialPort _serialPort;
 
     // session state
+    private readonly List<byte> _rxBuffer = new(FrameLength * 2);
     private bool _isInSession;
     private Guid _correlationId;
     private DateTimeOffset _startedAt;
@@ -67,6 +73,7 @@ public sealed class GasAnalyzerSensorWorker : BackgroundService
 
             _serialPort.DataReceived += OnSerialPortDataReceived;
             _serialPort.Open();
+            _serialPort.Write(PingCommand, 0, PingCommand.Length);
 
             _logger.LogInformation(
                 "Worker started. GasAnalyzerCOMPort {GasAnalyzerCOMPort}",
@@ -111,27 +118,48 @@ public sealed class GasAnalyzerSensorWorker : BackgroundService
     {
         try
         {
-            if (_serialPort is null || !_serialPort.IsOpen)
-            {
-                return;
-            }
-
             var bytesToRead = _serialPort.BytesToRead;
             if (bytesToRead <= 0)
             {
                 return;
             }
 
-            var buffer = new byte[bytesToRead];
-            var read = _serialPort.Read(buffer, 0, buffer.Length);
+            var chunk = new byte[bytesToRead];
+            var read = _serialPort.Read(chunk, 0, chunk.Length);
             if (read <= 0)
             {
                 return;
             }
 
-            _logger.LogDebug("{Time} {SerializedBuffer}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), string.Join("-", buffer));
+            _rxBuffer.AddRange(chunk.AsSpan(0, read).ToArray());
 
-            ProcessSerialReadBuffer(buffer);
+            while (true)
+            {
+                var startIndex = _rxBuffer.IndexOf(FrameStartByte);
+                if (startIndex < 0)
+                {
+                    _rxBuffer.Clear();
+
+                    break;
+                }
+
+                if (startIndex > 0)
+                {
+                    _rxBuffer.RemoveRange(0, startIndex);
+                }
+
+                if (_rxBuffer.Count < FrameLength)
+                {
+                    break;
+                }
+
+                var frame = _rxBuffer.GetRange(0, FrameLength).ToArray();
+                _rxBuffer.RemoveRange(0, FrameLength);
+
+                _logger.LogDebug("{Time} {SerializedBuffer}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), string.Join("-", frame));
+
+                ProcessSerialReadBuffer(frame);
+            }
         }
         catch (Exception ex)
         {
@@ -156,17 +184,30 @@ public sealed class GasAnalyzerSensorWorker : BackgroundService
             {
                 StartSession(data);
             }
-
-            return;
-        }
-
-        if (data.CO >= _domainSettings.COStartThreshold)
-        {
-            CheckForBetterLambda(data);
         }
         else
         {
-            CompleteSession();
+            if (data.CO >= _domainSettings.COStartThreshold)
+            {
+                CheckForBetterLambda(data);
+            }
+            else
+            {
+                CompleteSession();
+            }
+        }
+
+        if (_serialPort?.IsOpen == true)
+        {
+            _ = Task.Run(async () =>
+            {
+                await Task.Delay(1000);
+
+                if (_serialPort?.IsOpen == true)
+                {
+                    _serialPort.Write(PingCommand, 0, PingCommand.Length);
+                }
+            });
         }
     }
 
